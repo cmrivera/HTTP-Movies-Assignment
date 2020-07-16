@@ -25,7 +25,7 @@ const UpdateForm = (props) => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [id]);
 
   const changeHandler = (e) => {
     let name = e.target.name;
