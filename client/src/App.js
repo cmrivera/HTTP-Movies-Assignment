@@ -12,6 +12,8 @@ const App = () => {
   const [movieList, setMovieList] = useState([]);
   const [refresh, setRefresh] = useState(true);
 
+  //component to get Movie List from api for the app
+
   const getMovieList = () => {
     axios
       .get("http://localhost:5000/api/movies")
@@ -22,6 +24,7 @@ const App = () => {
       });
   };
 
+  //add to saved movie list, set saved list
   const addToSavedList = (movie) => {
     setSavedList([...savedList, movie]);
   };
@@ -30,6 +33,7 @@ const App = () => {
     getMovieList();
   }, [refresh]);
 
+  //routes to each path needed for movielist, savedlist, addMovie
   return (
     <>
       <SavedList list={savedList} />

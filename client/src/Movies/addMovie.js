@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+//add movie component useSTate to set state
 const AddMovie = (props) => {
   const [add, setAdd] = useState({
     title: "",
@@ -9,6 +10,7 @@ const AddMovie = (props) => {
     actors: "",
   });
 
+  //handleChange to aetAdded movie infor to list
   const handleChange = (e) => {
     setAdd({
       ...add,
@@ -17,6 +19,7 @@ const AddMovie = (props) => {
     console.log(add);
   };
 
+  //handle submit to post added movie to api
   const handleSubmit = (e) => {
     axios
       .post(`http://localhost:5001/api/movies/`, add)
@@ -24,9 +27,10 @@ const AddMovie = (props) => {
         props.history.push("/");
       })
       .catch((err) => console.log(err));
-    e.preventDefault();
+    //e.preventDefault();
   };
 
+  //addform
   return (
     <form onSubmit={handleSubmit}>
       <h1>{add.title}</h1>
@@ -57,7 +61,7 @@ const AddMovie = (props) => {
         value={add.stars}
         onChange={handleChange}
       />
-      <button onClick={handleChange}> Add Movie</button>
+      <button> Add Movie</button>
     </form>
   );
 };

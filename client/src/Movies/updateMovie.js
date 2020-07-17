@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import axios from "axios";
 
+//create initial values
 const initialValues = {
   id: "",
   title: "",
@@ -10,14 +11,16 @@ const initialValues = {
   stars: "",
 };
 
+//update form component
 const UpdateForm = (props) => {
   const { push } = useHistory();
   const { id } = useParams();
   const [movieValues, setMovieValues] = useState(initialValues);
 
+  //useEffect to pull info from api for update and then setMovieValues, using id for useParams
   useEffect(() => {
     axios
-      .get(`http://localhost:5001/api/movies/${id}`)
+      .get(`http://localhost:5000/api/movies/${id}`)
       .then((res) => {
         console.log(res);
         setMovieValues(res.data);
@@ -27,7 +30,10 @@ const UpdateForm = (props) => {
       });
   }, [id]);
 
+  //changeHandler to setMovie value for update
+
   const changeHandler = (e) => {
+    e.persist();
     let name = e.target.name;
     let value = e.target.value;
 
@@ -37,22 +43,23 @@ const UpdateForm = (props) => {
     });
   };
 
+  //handleSUbmit to prevent default reload
+  //post updated info movie
   const handleSubmit = (e) => {
     e.preventDefault();
 
     axios
-      .put(`http://localhost:5001/api/movies/${id}`, movieValues)
+      .put(`http://localhost:5000/api/movies/${id}`, movieValues)
       .then((res) => {
         console.log(res);
-        setMovieValues(initialValues);
-        push("/");
-        props.setRefresh(true);
+        props.setMovieValues(res.data);
+        push(`/movie-list/${id}`);
       })
       .catch((err) => {
         console.log(err);
       });
   };
-
+  //update form
   return (
     <div>
       <h2>Update Item</h2>
