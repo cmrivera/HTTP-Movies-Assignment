@@ -28,7 +28,7 @@ function Movie({ addToSavedList, setRefresh }) {
   }
 
   const handleDelete = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     axios
       .delete(`http://localhost:5000/api/movies/${params.id}`)
       .then((res) => {
@@ -53,8 +53,7 @@ function Movie({ addToSavedList, setRefresh }) {
           push(`/update-movie/${params.id}`);
         }}
       >
-        {" "}
-        Update Movie{" "}
+        Update Movie
       </button>
       <button onClick={handleDelete}> Delete Movie</button>
     </div>
